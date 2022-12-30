@@ -7,8 +7,8 @@ commands:
       - run:
           name: Upgrade Package Manager
           command: |
-            apt update
-            apt upgrade -y
+            sudo apt update
+            sudo apt upgrade -y
       - run:
           name: Install Aws Cli
           command: |
