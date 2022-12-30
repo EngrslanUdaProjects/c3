@@ -37,9 +37,9 @@ commands:
           name: Destroy environments
           when: on_fail
           command: |
-            aws clouformation delete-stack --stack-name udaproject-backend-<<parameters.workflow_id>>
+            aws cloudformation delete-stack --stack-name udaproject-backend-<<parameters.workflow_id>>
             aws s3 rm s3://udaproject-<<parameters.workflow_id>> --recursive
-            aws clouformation delete-stack --stack-name udaproject-frontend-<<parameters.workflow_id>>
+            aws cloudformation delete-stack --stack-name udaproject-frontend-<<parameters.workflow_id>>
 
 #   revert-migrations:
 #     description: Revert the last migration if successfully run in the current workflow.
