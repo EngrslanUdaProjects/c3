@@ -190,7 +190,6 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - install_gzip
       - install_awscli
       - add_ssh_keys:
           fingerprints:
