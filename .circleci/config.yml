@@ -160,7 +160,7 @@ jobs:
             aws cloudformation deploy \
               --template-file .circleci/files/backend.yml \
               --tags project=udaproject \
-              --stack-name "udaproject_backend_${CIRCLE_WORKFLOW_ID:0:7}" \
+              --stack-name "udaprojectbackend${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
       - run:
           name: Ensure front-end infrastructure exist
@@ -168,7 +168,7 @@ jobs:
             aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
               --tags project=udaproject \
-              --stack-name "udaproject_frontend_${CIRCLE_WORKFLOW_ID:0:7}" \
+              --stack-name "udaprojectfrontend${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
       - run:
           name: Add back-end ip to ansible inventory
