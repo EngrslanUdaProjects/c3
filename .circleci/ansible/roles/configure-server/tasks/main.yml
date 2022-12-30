@@ -1,0 +1,19 @@
+---
+- name: "Install NodeJs Repository"
+  become: true
+  shell: curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash -
+
+- name: "install deps"
+  become: true
+  apt:
+    name: ["nodejs","npm"]
+    state: latest
+    update_cache: yes
+    
+- name: "install pmg"
+  become: true
+  npm:
+    name: "pm2"
+    global: yes
+    state: latest
+# VS Code Extension Version: 1.5.1
