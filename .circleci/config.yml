@@ -204,8 +204,8 @@ jobs:
           name: Configure server
           command: |
             cd .circleci/ansible
-            cat ~/project/.circleci/ansible/inventory.txt
-            sudo ansible-playbook -i ~/project/.circleci/ansible/inventory.txt configure-server.yml
+            cat .circleci/ansible/inventory.txt
+            sudo ansible-playbook -i .circleci/ansible/inventory.txt configure-server.yml
       - destroy-environment
            
 
@@ -335,11 +335,11 @@ workflows:
           requires: [build-backend]
       - scan-frontend:
           requires: [build-frontend]
-      - deploy-infrastructure:
-          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-          filters:
-            branches:
-              only: [master]
+      # - deploy-infrastructure:
+      #     requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+      #     filters:
+      #       branches:
+      #         only: [master]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
       # - run-migrations:
