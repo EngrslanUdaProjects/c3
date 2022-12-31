@@ -40,7 +40,6 @@ commands:
             aws cloudformation delete-stack --stack-name udaproject-backend-<<parameters.workflow_id>>
             aws s3 rm s3://udaproject-<<parameters.workflow_id>> --recursive
             aws cloudformation delete-stack --stack-name udaproject-frontend-<<parameters.workflow_id>>
-
   revert-migrations:
     description: Revert the last migration if successfully run in the current workflow.
     parameters:
@@ -230,7 +229,7 @@ jobs:
               curl --insecure https://kvdb.io/${KVDB_IO_KEY}/migration_${CIRCLE_WORKFLOW_ID:0:7} -d "1"
             fi
       - destroy-environment
-      - revert-migration
+      - revert-migrations
      # Here's where you will add some code to rollback on failure      
 
 #   deploy-frontend:
