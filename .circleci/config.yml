@@ -199,13 +199,13 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            sudo apt install ansible -y
+            sudo apt update && sudo apt upgrade && sudo apt install ansible -y
       - run:
           name: Configure server
           command: |
             cd .circleci/ansible
             cat ~/project/.circleci/ansible/inventory.txt
-            sudo ansible-playbook -i ~/project/.circleci/ansible/inventory.txt configure-server.yml
+            sudo ansible-playbook -i ~/project/.circleci/ansible/inventory.txt configure-server.yml --private-key=c3_mac.pem
       - destroy-environment
            
 
