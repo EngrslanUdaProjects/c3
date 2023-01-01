@@ -2,33 +2,32 @@
 - name: Prepare backend
   become: true
   shell: |
-    cd ~
-    mkdir backend
+    apt update -y
     
 
-- name: unzip artifacts
-  unarchive:
-    dest: "~/backend"
-    src: "dist.tar.gz"
+# - name: unzip artifacts
+#   unarchive:
+#     dest: "~/backend"
+#     src: "dist.tar.gz"
 
-- name: Install dependencies
-  shell: |
-    cd ~/backend
-    npm i
+# - name: Install dependencies
+#   shell: |
+#     cd ~/backend
+#     npm i
 
-- name: Run Backend
-  shell: |
-    cd ~/backend/dist
-    pm2 stop default
-    pm2 start main.js
-  register: execute_node
+# - name: Run Backend
+#   shell: |
+#     cd ~/backend/dist
+#     pm2 stop default
+#     pm2 start main.js
+#   register: execute_node
 
-- name: Print Debug
-  debug:
-    msg: "{{execute_node.stdout_lines}}"
+# - name: Print Debug
+#   debug:
+#     msg: "{{execute_node.stdout_lines}}"
 
-- name: Run as a service
-  become: true
-  shell: |
-    env PATH=$PATH:/usr/local/bin pm2 startup systemd -ubuntu --hp /home/ubuntu  
+# - name: Run as a service
+#   become: true
+#   shell: |
+#     env PATH=$PATH:/usr/local/bin pm2 startup systemd -ubuntu --hp /home/ubuntu  
 # VS Code Extension Version: 1.5.1
