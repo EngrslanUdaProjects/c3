@@ -1,7 +1,8 @@
 ---
 - name: Prepare backend
+  become: true
   file:
-    path: "~/backend"
+    path: "~/web"
     state: directory
 
 - name: unzip artifacts
