@@ -264,22 +264,37 @@ jobs:
       - revert-migrations
       - destroy-environment     
                     
-#   deploy-backend:
-#     docker:
-#       # Docker image here that supports Ansible
-#     steps:
-#       # Checkout code from git
-#       # Add ssh keys with fingerprint
-#       # attach workspace
-#       - run:
-#           name: Install dependencies
-#           command: |
-#             # your code here
-#       - run:
-#           name: Deploy backend
-#           command: |
-#             # your code here
-#       # Here's where you will add some code to rollback on failure  
+  deploy-backend:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - install_awscli
+      - add_ssh_keys:
+          fingerprints:
+            - "d9:5b:ee:d6:90:93:3e:48:43:c2:fe:3d:35:ed:3a:80"
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt update && sudo apt upgrade && sudo apt install ansible -y
+      - run:
+          name: Deploy backend
+          command: |
+            cd backend
+            npm i
+            npm run build --prod
+            tar -czf dist.tar.gz dist/* package*
+
+            cp dist.tar.gz ../.circleci/ansible/roles/deploy/files
+
+            cd ../.circleci/ansible
+            cat inventory.txt
+
+            sudo ansible-playbook -i ~/project/.circleci/ansible/inventory.txt deploy-backend.yml --private-key=c3_mac.pem
+      - revert-migrations
+      - destroy-environment 
 
 #   smoke-test:
 #     docker:
@@ -363,8 +378,8 @@ workflows:
           requires: [configure-infrastructure]
       - deploy-frontend:
           requires: [run-migrations]
-      # - deploy-backend:
-      #     requires: [run-migrations]
+      - deploy-backend:
+          requires: [run-migrations]
       # - smoke-test:
       #     requires: [deploy-backend, deploy-frontend]
       # - cloudfront-update:
