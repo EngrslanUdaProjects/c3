@@ -262,6 +262,8 @@ jobs:
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then 
+              curl --insecure https://kvdb.io/${KVDB_IO_KEY}/migration_${CIRCLE_WORKFLOW_ID:0:7} -d "0"
+            else
               curl --insecure https://kvdb.io/${KVDB_IO_KEY}/migration_${CIRCLE_WORKFLOW_ID:0:7} -d "1"
             fi
       - destroy-environment
@@ -323,10 +325,9 @@ jobs:
             cd .circleci/ansible
             echo "Contents of the inventory.txt file is ------$(cat inventory.txt)"
             ansible-playbook -i inventory.txt deploy-backend.yml
-      - destroy-environment:
-          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
-      - revert-migrations:
-          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}         
+      - revert-migrations
+      - destroy-environment
+              
   # deploy-backend:
   #   docker:
   #     - image: cimg/base:stable
@@ -407,7 +408,7 @@ jobs:
             echo $API_URL
             if curl --connect-timeout 5 "${API_URL}/api/status" | grep "ok"
             then 
-              exit 0 
+              exit 1 
             else 
               exit 1 
             fi
@@ -423,7 +424,7 @@ jobs:
               exit 1 
             fi
       - revert-migrations
-      - destroy-environment  
+      - destroy-environment
 
 #   cloudfront-update:
 #     docker:
