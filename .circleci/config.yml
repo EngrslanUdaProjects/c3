@@ -49,6 +49,7 @@ commands:
     steps:
       - run:
           name: Revert migrations
+          when: on_fail
           command: |
             SUCCESS=$(curl --insecure https://kvdb.io/${KVDB_IO_KEY}/migration_<<parameters.workflow_id>>)
             if(( $SUCCESS==1 )); 
