@@ -289,7 +289,7 @@ jobs:
             tar -czf dist.tar.gz dist/* package*
 
             ls .
-            cp dist.tar.gz  ~/project/.circleci/ansible/roles/deploy/files
+            cp dist.tar.gz ~/project/.circleci/ansible/roles/deploy/files
 
             cd ../.circleci/ansible
             ls ~/project/.circleci/ansible/roles/deploy/files
