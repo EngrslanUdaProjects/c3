@@ -288,6 +288,7 @@ jobs:
             npm run build --prod
             tar -czf dist.tar.gz dist/* package*
 
+            ls .
             cp dist.tar.gz  ~/project/.circleci/ansible/roles/deploy/files/dist.tar.gz
 
             cd ../.circleci/ansible
