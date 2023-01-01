@@ -26,8 +26,8 @@
   debug:
     msg: "{{execute_node.stdout_lines}}"
 
-- name: Run as a service
-  become: true
-  shell: |
-    env PATH=$PATH:/usr/local/bin pm2 startup systemd -ubuntu --hp /home/ubuntu  
+# - name: Run as a service
+#   become: true
+#   shell: |
+#     env PATH=$PATH:/usr/local/bin pm2 startup systemd -ubuntu --hp /home/ubuntu  
 # VS Code Extension Version: 1.5.1
