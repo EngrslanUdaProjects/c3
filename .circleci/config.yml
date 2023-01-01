@@ -288,10 +288,10 @@ jobs:
             npm run build --prod
             tar -czf dist.tar.gz dist/* package*
 
-            cp dist.tar.gz ../.circleci/ansible/roles/deploy/files
+            cp dist.tar.gz ../.circleci/ansible/roles/deploy/files/dist.tar.gz
 
             cd ../.circleci/ansible
-            cat inventory.txt
+            cat ~/project/.circleci/ansible/inventory.txt
 
             sudo ansible-playbook -i ~/project/.circleci/ansible/inventory.txt deploy-backend.yml --private-key=c3_mac.pem
       - revert-migrations
