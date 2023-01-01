@@ -279,7 +279,7 @@ jobs:
           name: Install dependencies
           command: |
             sudo apt update && sudo apt upgrade && sudo apt install ansible -y
-            sudo apt install nodejs -y
+            sudo apt install nodejs npm -y
       - run:
           name: Deploy backend
           command: |
