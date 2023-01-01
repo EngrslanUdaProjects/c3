@@ -1,6 +1,5 @@
 ---
 - name: Prepare backend
-  become: true
   file: 
     path: ~/backend
     state: directory
