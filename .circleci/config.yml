@@ -267,7 +267,6 @@ jobs:
   deploy-backend:
     docker:
       - image: cimg/base:stable
-      - image: cimg/node:13.8.0
     steps:
       - checkout
       - install_awscli
@@ -280,6 +279,7 @@ jobs:
           name: Install dependencies
           command: |
             sudo apt update && sudo apt upgrade && sudo apt install ansible -y
+            sudo apt install nodejs
       - run:
           name: Deploy backend
           command: |
