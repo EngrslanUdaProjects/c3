@@ -1,9 +1,9 @@
 ---
 - name: Prepare backend
   become: true
-  shell: |
-    cd ~
-    mkdir backend
+  file: 
+    path: ~/backend
+    state: directory
     
 
 - name: unzip artifacts
