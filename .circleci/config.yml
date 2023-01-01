@@ -55,7 +55,7 @@ commands:
             then
               cd backend
               npm install
-              npm run migration:revert
+              npm run migrations:revert
             fi
             
 jobs:
@@ -261,7 +261,7 @@ jobs:
           name: Send migration results to memstash
           command: |
             cat ~/project/backend/migrations_dump.txt
-            if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
+            if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt || grep -q "No migrations are pending" ~/project/backend/migrations_dump.txt
             then 
               curl --insecure https://kvdb.io/${KVDB_IO_KEY}/migration_${CIRCLE_WORKFLOW_ID:0:7} -d "0"
             else
