@@ -1,9 +1,10 @@
 ---
 - name: Prepare backend
   become: true
-  file:
-    path: "~/web"
-    state: directory
+  shell: |
+    cd ~
+    mkdir backend
+    
 
 - name: unzip artifacts
   unarchive:
