@@ -39,6 +39,6 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub backend-${ID}
-        - Key: Application
+        - Key: Application 
           Value: UdaPeopleC3
 # VS Code Extension Version: 1.5.1
